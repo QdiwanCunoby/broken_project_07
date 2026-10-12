@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # Postgres nuovo a ogni job: è il motivo per cui il Bug 1 in CI si vede sempre
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: liparibank
+          POSTGRES_PASSWORD: liparibank_ci
+          POSTGRES_DB: liparibank_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U liparibank -d liparibank_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      TEST_DATABASE_URL: postgresql://liparibank:liparibank_ci@localhost:5432/liparibank_test?schema=public
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npm run typecheck
+      # globalSetup applica le migration (prisma migrate deploy) sul DB di TEST_DATABASE_URL
+      - run: npm run test:ci

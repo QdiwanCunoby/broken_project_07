@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`GET /api/accounts/:id — forma della risposta matches snapshot (campi volatili esclusi con matcher asimmetrici) 1`] = `
+{
+  "data": {
+    "balance": "1000.00",
+    "createdAt": Any<String>,
+    "iban": "IT60X0542811101000000123456",
+    "id": Any<String>,
+    "ownerId": Any<String>,
+    "status": "ACTIVE",
+    "type": "CHECKING",
+    "updatedAt": Any<String>,
+  },
+}
+`;

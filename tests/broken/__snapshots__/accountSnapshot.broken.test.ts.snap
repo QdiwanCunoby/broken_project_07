@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`matches snapshot 1`] = `
+{
+  "data": {
+    "balance": "1000.00",
+    "createdAt": "2026-10-12T19:28:13.885Z",
+    "iban": "IT60X0542811101000000123456",
+    "id": "c46077fd-f8b6-48ea-ade3-6b6d8f60850b",
+    "ownerId": "da84c98a-eb5f-4ccb-98ff-f88373a5d414",
+    "status": "ACTIVE",
+    "type": "CHECKING",
+    "updatedAt": "2026-10-12T19:28:13.885Z",
+  },
+}
+`;
